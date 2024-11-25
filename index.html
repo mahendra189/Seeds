@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seeds Classification</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <center>
+
+        <h2>Seeds Classification</h2>
+        <div style="padding:10px">
+
+            <img alt="plant" src="./assets/plant.gif" width="200" />
+        </div>
+        <div class="upload-container">
+            <label for="fileInput" class="upload-label">
+                <div id="uploadBox" class="upload-box">
+                    <img src="./assets/upload.svg" width="100" height="100" />
+                    <p>Click to Upload or Drag & Drop</p>
+                    <span>Accepted formats: JPEG, PNG</span>
+                </div>
+            </label>
+            <input type="file" id="fileInput" accept="image/*" />
+        </div>
+        <button id="predict" class="predict" onclick="predict()">
+            Predict
+        </button>
+    </center>
+    <script  src="./seed.js">
+        const fileInput = document.getElementById("fileInput");
+        const uploadBox = document.getElementById("uploadBox");
+
+        // Update box content when a file is selected
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files.length > 0) {
+                updateUploadBox(fileInput.files[0].name);
+            }
+        });
+
+        // Drag and Drop Handlers
+        uploadBox.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            uploadBox.classList.add("drag-over");
+        });
+
+        uploadBox.addEventListener("dragleave", () => {
+            uploadBox.classList.remove("drag-over");
+        });
+
+        uploadBox.addEventListener("drop", (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove("drag-over");
+
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                updateUploadBox(e.dataTransfer.files[0].name);
+            }
+        });
+
+        // Function to update upload box content
+        function updateUploadBox(fileName) {
+            uploadBox.innerHTML = `<p>File Selected:</p><strong>${fileName}</strong>`;
+        }
+    </script>
+</body>
+
+</html>

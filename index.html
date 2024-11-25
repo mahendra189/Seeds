@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seeds Classification</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- <script src="model.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
+
 </head>
 
 <body>
@@ -17,6 +21,8 @@
             <img alt="plant" src="./assets/plant.gif" width="200" />
         </div>
         <div class="upload-container">
+
+            <canvas id="canvas" style="display: none;" width="224" height="224"></canvas>
             <label for="fileInput" class="upload-label">
                 <div id="uploadBox" class="upload-box">
                     <img src="./assets/upload.svg" width="100" height="100" />
@@ -26,46 +32,14 @@
             </label>
             <input type="file" id="fileInput" accept="image/*" />
         </div>
-        <button id="predict" class="predict" onclick="predict()">
+        <button id="predict" class="predict" onclick="classifyImage()">
             Predict
         </button>
+        <p id="result">Seed of Plant</p>
+        <img id="illustration" src="" alt="seed vegi" width="100" />
     </center>
-    <script  src="./seed.js">
-        const fileInput = document.getElementById("fileInput");
-        const uploadBox = document.getElementById("uploadBox");
+    <script src="model.js"></script>
 
-        // Update box content when a file is selected
-        fileInput.addEventListener("change", () => {
-            if (fileInput.files.length > 0) {
-                updateUploadBox(fileInput.files[0].name);
-            }
-        });
-
-        // Drag and Drop Handlers
-        uploadBox.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            uploadBox.classList.add("drag-over");
-        });
-
-        uploadBox.addEventListener("dragleave", () => {
-            uploadBox.classList.remove("drag-over");
-        });
-
-        uploadBox.addEventListener("drop", (e) => {
-            e.preventDefault();
-            uploadBox.classList.remove("drag-over");
-
-            if (e.dataTransfer.files.length > 0) {
-                fileInput.files = e.dataTransfer.files;
-                updateUploadBox(e.dataTransfer.files[0].name);
-            }
-        });
-
-        // Function to update upload box content
-        function updateUploadBox(fileName) {
-            uploadBox.innerHTML = `<p>File Selected:</p><strong>${fileName}</strong>`;
-        }
-    </script>
 </body>
 
 </html>

@@ -1,18 +1,20 @@
 const seeds_illustration = {
-    'brinjal_seeds':"./assets/seeds/brinjal.png",
-    'chilli_seeds':"./assets/seeds/chilli.png",
-        'cucumber_seeds':"./assets/seeds/cucumber.png",
-        'ladyfinger_seeds':"./assets/seeds/ladyfinger.jpg",
-        'pumpkin_seeds':"./assets/seeds/pumpkin.png",
-        'tomato_seeds':"./assets/seeds/tomato.png"
+    'brinjal_seeds': "./assets/seeds/brinjal.png",
+    'chilli_seeds': "./assets/seeds/chilli.png",
+    'cucumber_seeds': "./assets/seeds/cucumber.png",
+    'ladyfinger_seeds': "./assets/seeds/ladyfinger.jpg",
+    'pumpkin_seeds': "./assets/seeds/pumpkin.png",
+    'tomato_seeds': "./assets/seeds/tomato.png"
 }
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const fileInput = document.getElementById("fileInput");
 const resultDiv = document.getElementById("result");
 const seedIllus = document.getElementById("illustration")
-
+const loading = document.getElementById("loading")
 const uploadBox = document.getElementById("uploadBox");
+
+
 
 // Update box content when a file is selected
 fileInput.addEventListener("change", () => {
@@ -60,32 +62,48 @@ function updateUploadBox(fileName) {
 
 // Function to load the ONNX model and classify the image
 async function classifyImage() {
-    try {
-        // Load ONNX model
-        const session = await ort.InferenceSession.create('./model/model.onnx');
-        console.log("Model loaded successfully");
+    if (fileInput.files.length > 0) {
+        try {
+            const predict_btn = document.getElementById("predict")
+            predict_btn.disabled = true;
+            const featureArea = document.getElementById("feature")
+            featureArea.innerHTML = `<div id="loading">
+                    <img class="loading" src="assets/network.webp" alt="loading" width="150">
+                </div>`;
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            console.log(uploadBox.innerHTML)
+            // Load ONNX model
+            const session = await ort.InferenceSession.create('./model/model.onnx');
 
-        // Preprocess image
-        const inputTensor = preprocessImage();
-        console.log(inputTensor)
+            // Preprocess image
+            const inputTensor = preprocessImage();
+            console.log(inputTensor)
 
-        // Run inference
-        const feeds = { 'input.1': inputTensor }; // Adjust `input` to your model's input name
-        const output = await session.run(feeds);
+            // Run inference
+            const feeds = { 'input.1': inputTensor }; // Adjust `input` to your model's input name
+            const output = await session.run(feeds);
 
-        // Display results
-        const outputTensor = output[Object.keys(output)[0]]; // Get first output tensor
-        console.log(outputTensor);
-        const prediction = argMax(outputTensor.data);
-        displayResult(prediction);
-    } catch (error) {
-        console.error("Error during classification:", error);
+            // Display results
+            const outputTensor = output[Object.keys(output)[0]]; // Get first output tensor
+            console.log(outputTensor);
+            const prediction = argMax(outputTensor.data);
+            displayResult(prediction);
+            featureArea.innerHTML = `<p>Neural Network🗺</p>`
+            predict_btn.disabled = false;
+
+
+
+        } catch (error) {
+            console.error("Error during classification:", error);
+        }
+    } else {
+        //alert 
+        alert("Please Upload a image")
     }
 }
 
 // Handle file input and load image into canvas
 fileInput.addEventListener("change", () => {
-    ctx.style.display = "block";
     const file = fileInput.files[0];
     if (file) {
         const reader = new FileReader();
@@ -93,7 +111,7 @@ fileInput.addEventListener("change", () => {
             const img = new Image();
             img.onload = () => {
                 ctx.drawImage(img, 0, 0, 224, 224); // Resize image to 224x224
-            }; 
+            };
             img.src = e.target.result;
         };
         reader.readAsDataURL(file);
@@ -127,5 +145,13 @@ function displayResult(prediction) {
         ; // Replace with your actual labels
     resultDiv.textContent = `Prediction: ${labels[prediction]} (Class ${prediction})`;
     seedIllus.src = seeds_illustration[labels[prediction]]
+
+}
+
+
+function setLoading() {
+    featureArea.innerHTML = `<div id="loading">
+                            <img class="loading" src="assets/network.webp" alt="loading" width="150">
+                        </div>`
 
 }

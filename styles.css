@@ -25,6 +25,7 @@ body {
 body {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     margin: 0;
@@ -89,9 +90,15 @@ input[type="file"] {
 }
 
 .predict {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
     margin-top: 10px;
     outline: none;
-    border: 2px dashed black;
+    border: 2px solid #005abb;
     border-radius: 8px;
     padding: 4px 0px;
     font-size: 18px;
@@ -101,6 +108,7 @@ input[type="file"] {
     color: white;
     transition: all 300ms;
     font-family: "Mono Space",monospace;
+    font-weight: bold;
 }
 
 .predict:hover {
@@ -109,6 +117,12 @@ input[type="file"] {
 }
 
 #feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
     border: 2px dashed;
     border-radius: 10px;
     margin-top: 10px;

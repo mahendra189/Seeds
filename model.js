@@ -1,10 +1,10 @@
 const seeds_illustration = {
-    'brinjal_seeds': "./assets/seeds/brinjal.png",
-    'chilli_seeds': "./assets/seeds/chilli.png",
-    'cucumber_seeds': "./assets/seeds/cucumber.png",
-    'ladyfinger_seeds': "./assets/seeds/ladyfinger.jpg",
-    'pumpkin_seeds': "./assets/seeds/pumpkin.png",
-    'tomato_seeds': "./assets/seeds/tomato.png"
+    'Brinjal Seeds': "./assets/seeds/brinjal.png",
+    'Chilli Seeds': "./assets/seeds/chilli.png",
+    'Cucumber Seeds': "./assets/seeds/cucumber.png",
+    'Ladyfinger Seeds': "./assets/seeds/ladyfinger.jpg",
+    'Pumpkin Seeds': "./assets/seeds/pumpkin.png",
+    'Tomato Seeds': "./assets/seeds/tomato.png"
 }
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -106,6 +106,8 @@ async function classifyImage() {
 fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
     if (file) {
+        const ctx = document.getElementById("canvas")
+        ctx.style.display = "block"
         const reader = new FileReader();
         reader.onload = (e) => {
             const img = new Image();
@@ -136,12 +138,13 @@ function argMax(array) {
 
 // Display the classification result
 function displayResult(prediction) {
-    const labels = ['brinjal_seeds',
-        'chilli_seeds',
-        'cucumber_seeds',
-        'ladyfinger_seeds',
-        'pumpkin_seeds',
-        'tomato_seeds']
+    const labels = [
+        'Brinjal Seeds',
+        'Chilli Seeds',
+        'Cucumber Seeds',
+        'Ladyfinger Seeds',
+        'Pumpkin Seeds',
+        'Tomato Seeds']
         ; // Replace with your actual labels
     resultDiv.textContent = `Prediction: ${labels[prediction]} (Class ${prediction})`;
     seedIllus.src = seeds_illustration[labels[prediction]]

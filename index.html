@@ -6,28 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seeds Classification</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <script src="model.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-
-
 </head>
 
 <body>
-    <center>
 
         <h2>Seeds Classification</h2>
         <div style="padding:10px">
-
             <img alt="plant" src="./assets/plant.gif" width="200" />
         </div>
         <div class="upload-container">
 
-            <canvas id="canvas" style="display: none;" width="224" height="224"></canvas>
             <label for="fileInput" class="upload-label">
-                <div id="uploadBox" class="upload-box">
-                    <img src="./assets/upload.svg" width="100" height="100" />
-                    <p>Click to Upload or Drag & Drop</p>
-                    <span>Accepted formats: JPEG, PNG</span>
+                <div class="upload-box">
+
+                    <canvas id="canvas" style="display: none;" width="224" height="224"></canvas>
+                    <div id="uploadBox" >
+                        <img src="./assets/upload.svg" width="100" height="100" />
+                        <p>Click to Upload or Drag & Drop</p>
+                        <span>Accepted formats: JPEG, PNG</span>
+                    </div>
                 </div>
             </label>
             <input type="file" id="fileInput" accept="image/*" />
@@ -40,7 +38,6 @@
         </button>
         <p id="result">Seed of Plant</p>
         <img id="illustration" src="./assets/place.png" alt="seed vegi" width="100" />
-    </center>
     <script src="model.js"></script>
 
 </body>

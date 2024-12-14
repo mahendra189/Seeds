@@ -11,33 +11,60 @@
 
 <body>
 
-        <h2>Seeds Classification</h2>
-        <div style="padding:10px">
-            <img alt="plant" src="./assets/plant.gif" width="200" />
-        </div>
-        <div class="upload-container">
+    <h2>Seeds Classification</h2>
+    <div style="padding:10px">
+        <img alt="plant" src="./assets/plant.gif" width="200" />
+    </div>
+    <div class="upload-container">
 
-            <label for="fileInput" class="upload-label">
-                <div class="upload-box">
+        <label for="fileInput" class="upload-label">
+            <div class="upload-box">
 
-                    <canvas id="canvas" style="display: none;" width="224" height="224"></canvas>
-                    <div id="uploadBox" >
-                        <img src="./assets/upload.svg" width="100" height="100" />
-                        <p>Click to Upload or Drag & Drop</p>
-                        <span>Accepted formats: JPEG, PNG</span>
-                    </div>
+                <canvas id="canvas" style="display: none;" width="224" height="224"></canvas>
+                <div id="uploadBox">
+                    <img src="./assets/upload.svg" width="100" height="100" />
+                    <p>Click to Upload or Drag & Drop</p>
+                    <span>Accepted formats: JPEG, PNG</span>
                 </div>
-            </label>
-            <input type="file" id="fileInput" accept="image/*" />
+            </div>
+        </label>
+        <input type="file" id="fileInput" accept="image/*" />
+    </div>
+    <div id="feature">
+        <p>Neural Network🗺</p>
+    </div>
+    <button id="predict" class="predict" onclick="classifyImage()">
+        Predict
+    </button>
+    <p id="result">Seed of Plant</p>
+    <img id="illustration" src="./assets/place.png" alt="seed vegi" width="100" />
+    <div id="area">
+        <h3>Calculate Tomato Seeds Required (Kg)</h3>
+        <div class="h-line">
+            <span>Length</span>
         </div>
-        <div id="feature">
-            <p>Neural Network🗺</p>
+        <div class="field-container">
+
+            <div id="field">
+            </div>
+            <div class="v-line">
+                <span>Width</span>
+            </div>
         </div>
-        <button id="predict" class="predict" onclick="classifyImage()">
-            Predict
+        <div id="field-dimensions">
+            <p class="value">
+                <input class="field-input" type="number" name="length" value="1" id="length">
+            </p>acres X
+            <p class="value"><input class="field-input" type="number" name="length" value="2" id="width"></p> acres = <p
+                class="value">1000</p>kg
+        </div>
+        <button class="btn">
+            Calculate
         </button>
-        <p id="result">Seed of Plant</p>
-        <img id="illustration" src="./assets/place.png" alt="seed vegi" width="100" />
+
+
+    </div>
+    <div></div>
     <script src="model.js"></script>
 
 </body>
